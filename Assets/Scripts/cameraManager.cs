@@ -20,17 +20,14 @@ public class cameraManager : MonoBehaviour {
 
 	void Update(){
 		if (transformToView != null) {
-			routeLength = Vector3.Distance (camtransform.position, transformToView.position);
-
-			float distToCover = (Time.time - startTime) / camspeed;
-			float currentDistance = distToCover / routeLength;
-
 			if (camtransform.position != transformToView.position) {
+				routeLength = Vector3.Distance (camtransform.position, transformToView.position);
+
+				float distToCover = (Time.time - startTime) / camspeed;
+				float currentDistance = distToCover / routeLength;
 				transform.position = Vector3.Lerp (camtransform.position, transformToView.position, currentDistance);
 				transform.rotation = Quaternion.Lerp (camtransform.rotation, transformToView.rotation, currentDistance);
-				Debug.Log ("Current Distance " + currentDistance);
-			} else {
-				Debug.Log ("Greater than 1 ");
+
 			}
 		}
 	}

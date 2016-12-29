@@ -19,30 +19,23 @@ public class floorManager : MonoBehaviour {
 		RemoveRoute ();
 	}
 
-//	void Update(){
-//		
-//	}
-
 	public void RemoveRoute(){
 		disableShelfPaths = GameObject.FindGameObjectsWithTag ("parentnode");
-
 		for (int i = 0; i < disableShelfPaths.Length; i++) {
 			myLine = disableShelfPaths[i].GetComponent<LineRenderer> ();
 			myLine.enabled = false;
 
 			greenglow = disableShelfPaths [i].transform.GetChild (0).gameObject;
 			anim = greenglow.GetComponent<Animator> ();
-			anim.SetTrigger ("noglow");
+			anim.SetBool ("setGlow",false);
 		}
 	}
 		
 	public void GetSearch(string searchname){
-		
-		if (searchname == "") {
 			RemoveRoute ();
-		}else{
 
 			shelfsearch = GameObject.Find (searchname);
+
 			if (shelfsearch != null) {
 				if(shelfsearch.gameObject.CompareTag("parentnode")){
 					DP = shelfsearch.GetComponent<drawPath> ();
@@ -53,7 +46,7 @@ public class floorManager : MonoBehaviour {
 					selectedShelf = shelfsearch.transform.GetChild(1).transform;
 
 					anim = greenglow.GetComponent<Animator> ();
-					anim.SetTrigger ("glow");
+					anim.SetBool ("setGlow",true);
 
 
 					DP.destination = selectedShelf;
@@ -62,14 +55,6 @@ public class floorManager : MonoBehaviour {
 			} else {
 				Debug.Log ("Product does not exist");
 			}
-
-		}
 	}
-
-
-
-
-
-
-
+		
 }
