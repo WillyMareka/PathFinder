@@ -5,12 +5,12 @@ using UnityEngine;
 public class cameraManager : MonoBehaviour {
 
 
-	public float camspeed = 3.0f;
+	public float camspeed = 0.1f;
 
-	private Transform transformToView;
+	public Transform transformToView;
 	private Transform camtransform;
 	private float startTime;
-	private float routeLength;
+	private float routeLength,currentDistance;
 
 
 	void Start () {
@@ -18,13 +18,21 @@ public class cameraManager : MonoBehaviour {
 		camtransform = transform;
 	}
 
-	public void ToSelected(Transform transformToView){
-		routeLength = Vector3.Distance (camtransform.position,transformToView.position);
+	void Update(){
+		if (transformToView != null) {
+			routeLength = Vector3.Distance (camtransform.position, transformToView.position);
 
-		float distToCover = (Time.time - startTime) * camspeed;
-		float currentDistance = distToCover / routeLength;
+			float distToCover = (Time.time - startTime) / camspeed;
+			float currentDistance = distToCover / routeLength;
 
-		transform.position = Vector3.Lerp (camtransform.position, transformToView.position, currentDistance);
-		transform.rotation = Quaternion.Lerp (camtransform.rotation, transformToView.rotation, currentDistance);
+			if (camtransform.position != transformToView.position) {
+				transform.position = Vector3.Lerp (camtransform.position, transformToView.position, currentDistance);
+				transform.rotation = Quaternion.Lerp (camtransform.rotation, transformToView.rotation, currentDistance);
+				Debug.Log ("Current Distance " + currentDistance);
+			} else {
+				Debug.Log ("Greater than 1 ");
+			}
+		}
 	}
+		
 }

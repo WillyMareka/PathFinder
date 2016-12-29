@@ -60,8 +60,7 @@ public class drawPath : MonoBehaviour {
 			//if (destination != null && canCamMove == true) {
 				camObj = GameObject.Find ("Main Camera");
 				CM = camObj.GetComponent<cameraManager> ();
-			//Debug.Log (destination.position);
-				CM.ToSelected (destination);
+				CM.transformToView = destination;
 			//}
 		}
 

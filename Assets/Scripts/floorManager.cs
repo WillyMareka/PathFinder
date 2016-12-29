@@ -33,8 +33,6 @@ public class floorManager : MonoBehaviour {
 			greenglow = disableShelfPaths [i].transform.GetChild (0).gameObject;
 			anim = greenglow.GetComponent<Animator> ();
 			anim.SetTrigger ("noglow");
-
-			
 		}
 	}
 		
@@ -52,14 +50,15 @@ public class floorManager : MonoBehaviour {
 					myLine.enabled = true;
 
 					greenglow = shelfsearch.transform.GetChild(0).gameObject;
+					selectedShelf = shelfsearch.transform.GetChild(1).transform;
+
 					anim = greenglow.GetComponent<Animator> ();
 					anim.SetTrigger ("glow");
-					selectedShelf = shelfsearch.transform.GetChild(1).transform;
+
 
 					DP.destination = selectedShelf;
 					DP.canCamMove = true;
 				}
-
 			} else {
 				Debug.Log ("Product does not exist");
 			}
